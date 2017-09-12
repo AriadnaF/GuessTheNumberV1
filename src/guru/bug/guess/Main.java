@@ -102,7 +102,10 @@ public class Main {
         try (Scanner in = new Scanner(boardPath)) {
             while (in.hasNext()) {
                 GameResult result = new GameResult();
-                result.name = in.next();
+              //  result.name = in.next();
+                String temp = in.next();
+                result.name = temp.replaceAll("_"," ");
+              //  result.name.replaceAll("_"," ");
                 result.attempts = in.nextInt();
                 result.time = in.nextLong();
                 list.add(result);
@@ -116,7 +119,7 @@ public class Main {
     private static void storeLeaderBoard() {
         try (Writer out = Files.newBufferedWriter(boardPath)) {
             for (GameResult r : leaderBoard) {
-                String line = String.format("%s %d %d\n", r.name, r.attempts, r.time);
+                String line = String.format("%s %d %d\n", r.name.replaceAll(" ","_"), r.attempts, r.time);
                 out.write(line);
             }
         } catch (IOException e) {
